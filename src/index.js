@@ -12,26 +12,6 @@ function Square(props) {
   }
   
   class Board extends React.Component {
-    /*constructor(props){
-            super(props);
-            this.state = {
-                squares: Array(9).fill(null),
-                xIsNext: true,
-            }
-        }*/
-
-    /* Method move to Game component
-    handleClick(i){
-        const squares = this.state.squares.slice();
-        if (calculateWinner(squares) || squares[i]) {
-          return;
-        }
-        squares[i] = this.state.xIsNext ? 'X' : 'O' ;
-        this.setState({
-          squares:squares,
-          xIsNext: !this.state.xIsNext,
-        });
-    }*/
 
     renderSquare(i) {
       return (
@@ -42,13 +22,6 @@ function Square(props) {
           );
     }
     render() {
-      /*const winner = calculateWinner(this.state.squares);
-      let status;
-      if (winner) {
-        status = 'Winner: '+ winner;
-        } else {
-        status = 'Next player: '+ (this.state.xIsNext ? 'X' : 'O');
-        }*/
 
       return (
         <div>
@@ -80,13 +53,14 @@ function Square(props) {
         history: [{
           squares: Array(9).fill(null),
         }],
+        stepNumber: 0,
         xIsNext:true,
       }
     }
 
     handleClick(i){
       //new conts added
-      const history = this.state.history;
+      const history = this.state.history.slice(0, this.state.stepNumber + 1); //modified to use jumpTo 
       const current = history[history.length - 1];
       const squares = current.squares.slice();
       if (calculateWinner(squares) || squares[i]) {
@@ -94,16 +68,26 @@ function Square(props) {
       }
       squares[i] = this.state.xIsNext ? 'X' : 'O' ;
       this.setState({
-        history:history.concat([{
+        history:history.concat([
+          {
           squares:squares,
-        }]),
+        }
+      ]),
+        stepNumber: history.length,
         xIsNext: !this.state.xIsNext,
       });
-  }
+    }
+
+    jumpTo(step){
+      this.setState({
+        stepNumber: step,
+        xIsNext:(step % 2) === 0,
+      });
+    }
 
     render() {
       const history = this.state.history;
-      const current = history[history.length - 1];
+      const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
 
       //Mapping moves historial
@@ -112,7 +96,7 @@ function Square(props) {
           'Go to move #'+ move:
           'Go to start';
         return(
-          <li>
+          <li key = {move}>
             <button onClick={() => this.jumpTo(move)}>{desc}</button>
           </li>
         );
