@@ -9,7 +9,7 @@
 6. Cuando nadie gana, muestra un mensaje acerca de que el resultado es un empate.
 
 ## Repositorio original
-`https://github.com/kelanwu/react-tic-tac-toe.git`
+[kelanwu repo](https://github.com/kelanwu/react-tic-tac-toe.git)
 
 ## Muestra la ubicacion para cada movimiento
 Usaremos el array de `squares` para guardar el estado de cada paso en la clase `Game`. 
