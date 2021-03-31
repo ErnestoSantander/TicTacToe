@@ -14,7 +14,8 @@
 ## Muestra la ubicacion para cada movimiento
 Usaremos el array de `squares` para guardar el estado de cada paso en la clase `Game`. 
 
-`handleClick(i){
+ ```javascript
+ handleClick(i){
       // ...
       this.setState({
         history:history.concat([
@@ -25,4 +26,4 @@ Usaremos el array de `squares` para guardar el estado de cada paso en la clase `
         }
       ]),
       // ...
-      }`
+      }
