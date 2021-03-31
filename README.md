@@ -25,4 +25,4 @@ Usaremos el array de `squares` para guardar el estado de cada paso en la clase `
         }
       ]),
       // ...
-      }```
+      }
