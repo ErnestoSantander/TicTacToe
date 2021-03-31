@@ -12,5 +12,17 @@
 `https://github.com/kelanwu/react-tic-tac-toe.git`
 
 ## Muestra la ubicacion para cada movimiento
+Usaremos el array de `squares` para guardar el estado de cada paso en la clase `Game`. 
 
-
+`handleClick(i){
+      // ...
+      this.setState({
+        history:history.concat([
+          {
+          squares:squares,
+          //Store the index of the latest moved square
+          latestMoveSquare: i,
+        }
+      ]),
+      // ...
+      }`
