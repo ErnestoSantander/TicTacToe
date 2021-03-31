@@ -71,6 +71,8 @@ function Square(props) {
         history:history.concat([
           {
           squares:squares,
+          //Store the index of the latest moved square
+          latestMoveSquare: i,
         }
       ]),
         stepNumber: history.length,
@@ -92,8 +94,11 @@ function Square(props) {
 
       //Mapping moves historial
       const moves = history.map((step, move) => {
+        const latestMoveSquare = step.latestMoveSquare;
+        const col = 1 + latestMoveSquare % 3;
+        const row = 1 + Math.floor(latestMoveSquare / 3);
         const desc = move ? 
-          'Go to move #'+ move:
+          `Go to move #${move} (${col}, ${row})`:
           'Go to start';
         return(
           <li key = {move}>
@@ -106,7 +111,7 @@ function Square(props) {
       if (winner) {
         status = 'Winner: '+ winner;
       } else {
-        status = 'Next player'+ (this.state.xIsNext ? 'X' : 'O' );
+        status = 'Next player '+ (this.state.xIsNext ? 'X' : 'O' );
       }
 
       return (
