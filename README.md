@@ -56,4 +56,30 @@ Con `latestMoveSquare`, podemos facilmente contar la posicion de cada movimiento
 ```
 Cuando se corre `npm start` deberias de poder ver la ubicacion de cada movimiento excepto en `Go to game start`.
 
+## Convierte en negrita el elemento actualmente seleccionado en la lista de movimientos.
+Para este caso añadiremos este estilo al archivo `scr/index.css`
+
+```css
+.move-list-item-selected{
+  float: left;
+  font-weight: bold;
+}
+```
+Modificando el metodo `render` en la clase `Game`, aplicamos el estilo de la clase `move-list-item-selected` si `move === this.state.stepNumber`, que quiere decir que el item a sido seleccionado.
+
+Note que uso `this` para evitar que JS pueda detectar al parametro.
+
+```Javascript
+render() {
+      //... nolhing changed
+        return(
+          <li key = {move}>
+            <button className = {move === this.state.stepNumber ? 'move-list-item-selected':''}
+            onClick={() => this.jumpTo(move)}>{desc}
+            </button>
+          </li>
+        );
+      });
+```
+
 ## Reescribe el Board para usar 2 ciclos para hacer los cuadrados en vez de escribirlos a mano.
