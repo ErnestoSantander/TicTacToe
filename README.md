@@ -108,3 +108,4 @@ Para cada paso del primer ciclo, creamos una fila del tablero. Y para cada paso 
 
 ## Agrega un botón de switch que te permita ordenar los movimientos en orden ascendente o descendente.
 
+Para esto 
