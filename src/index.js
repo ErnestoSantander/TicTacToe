@@ -30,7 +30,7 @@ function Square(props) {
         for (let j = 0; j < boardSize; j++) {
           row.push(this.renderSquare(i*boardSize + j));
         }
-        squares.push(<div>key={i} className="board-row"</div>);
+        squares.push(<div key={i} className="board-row">{row}</div>);
       }
 
       return (
@@ -48,6 +48,7 @@ function Square(props) {
         }],
         stepNumber: 0,
         xIsNext:true,
+        isAscending:true,
       };
     }
 
@@ -80,13 +81,21 @@ function Square(props) {
       });
     }
 
+    //Method for handling sorting list
+    handleSortToggle(){
+      this.setState({
+        isAscending: !this.state.isAscending
+      });
+    }
+
     render() {
       const history = this.state.history;
       const current = history[this.state.stepNumber];
       const winner = calculateWinner(current.squares);
+      const stepNumber = this.state.stepNumber;
 
       //Mapping moves historial
-      const moves = history.map((step, move) => {
+      let moves = history.map((step, move) => {
         const latestMoveSquare = step.latestMoveSquare;
         const col = 1 + latestMoveSquare % 3;
         const row = 1 + Math.floor(latestMoveSquare / 3);
@@ -95,7 +104,7 @@ function Square(props) {
           'Go to start';
         return(
           <li key = {move}>
-            <button className = {move === this.state.stepNumber ? 'move-list-item-selected' : ''}
+            <button className = {move === stepNumber ? 'move-list-item-selected' : ''}
             onClick={() => this.jumpTo(move)}>{desc}
             </button>
           </li>
@@ -106,8 +115,14 @@ function Square(props) {
       if (winner) {
         status = 'Winner: '+ winner;
       } else {
-        status = 'Next player '+ (this.state.xIsNext ? 'X' : 'O' );
+        status = 'Next player: '+ (this.state.xIsNext ? 'X' : 'O' );
       }
+
+      const isAscending = this.state.isAscending;
+      if (!isAscending) {
+        moves.reverse();
+      } 
+      
 
       return (
         <div className="game">
@@ -119,6 +134,9 @@ function Square(props) {
           </div>
           <div className="game-info">
             <div>{status}</div>
+            <button onClick = {() => this.handleSortToggle()}>
+              {isAscending ? 'Descending' : 'Ascending'}
+            </button>
             <ol>{moves}</ol>
           </div>
         </div>

@@ -106,3 +106,5 @@ Para esta solucion vamos a reescribir el metodo render en `Board`, de esta maner
 
 Para cada paso del primer ciclo, creamos una fila del tablero. Y para cada paso del segundo ciclo, añadimos un cuadro a la fila.
 
+## Agrega un botón de switch que te permita ordenar los movimientos en orden ascendente o descendente.
+
