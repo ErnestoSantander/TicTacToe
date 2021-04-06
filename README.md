@@ -67,7 +67,7 @@ Para este caso añadiremos este estilo al archivo `scr/index.css`
 ```
 Modificando el metodo `render` en la clase `Game`, aplicamos el estilo de la clase `move-list-item-selected` si `move === this.state.stepNumber`, que quiere decir que el item a sido seleccionado.
 
-Note que uso `this` para evitar que JS pueda detectar al parametro.
+Note el uso de `this` para que JS pueda asociar el parametro.
 
 ```Javascript
 render() {
@@ -83,3 +83,26 @@ render() {
 ```
 
 ## Reescribe el Board para usar 2 ciclos para hacer los cuadrados en vez de escribirlos a mano.
+Para esta solucion vamos a reescribir el metodo render en `Board`, de esta manera usamos 2 ciclos `for` para generar la matriz de cuadros.
+```Javascript
+  //...
+  render() {
+      //using two loop to make the squares
+      const boardSize = 3;
+      let squares = [];
+      for (let i =  0 ; i < boardSize; i++) {
+        let row = [];
+        for (let j = 0; j < boardSize; j++) {
+          row.push(this.renderSquare(i*boardSize + j));
+        }
+        squares.push(<div>key={i} className="board-row"</div>);
+      }
+
+      return (
+        <div>{squares}</div>
+      );
+    }
+```
+
+Para cada paso del primer ciclo, creamos una fila del tablero. Y para cada paso del segundo ciclo, añadimos un cuadro a la fila.
+
