@@ -108,4 +108,55 @@ Para cada paso del primer ciclo, creamos una fila del tablero. Y para cada paso 
 
 ## Agrega un botón de switch que te permita ordenar los movimientos en orden ascendente o descendente.
 
-Para esto 
+Primero agregamos al estado del constructor la variable 'isAscending' como 'true' como sigue.
+```Javascript
+  class Game extends React.Component {
+    constructor(props){
+      super(props);
+      this.state = {
+        history: [{
+          squares: Array(9).fill(null),
+        }],
+        stepNumber: 0,
+        xIsNext:true,
+        isAscending:true,
+      };
+    }
+```
+Agregamos en el metodo `render` una condicion que esta ligada a la variable `isAscending`. De esta forma mandamos a llamar el metodo `.reverse`.
+```Javascript
+  const isAscending = this.state.isAscending;
+      if (!isAscending) {
+        moves.reverse();
+      } 
+
+```
+Se agrega el boton en el render de `Game` llamando al metodo como se muetra a continuacion.
+```Javascript
+ return (
+        <div className="game">
+          <div className="game-board">
+            <Board 
+            squares={current.squares}
+            onClick={(i) => this.handleClick(i)}
+            />
+          </div>
+          <div className="game-info">
+            <div>{status}</div>
+            <button onClick = {() => this.handleSortToggle()}>
+              {isAscending ? 'Descending' : 'Ascending'}
+            </button>
+            <ol>{moves}</ol>
+          </div>
+        </div>
+      );
+    }
+```
+Finalmente el metodo `handleSorting` se encarga de cambiar el estado de `isAscending`.
+```Javascript
+  handleSortToggle(){
+      this.setState({
+        isAscending: !this.state.isAscending
+      });
+    }
+```
